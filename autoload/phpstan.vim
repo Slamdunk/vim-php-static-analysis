@@ -1,23 +1,29 @@
 function! phpstan#PHPStanAnalyse(...)
     let paths = join(a:000, '\ ')
-
     let phpstan_path = phpstan#_resolvePhpstanPath()
 
     let cmd = phpstan_path . ' analyse --errorFormat=raw --no-progress -l' . g:phpstan_analyse_level . ' ' . paths
-    let result = system(cmd)
+    let output = system(cmd)
 
     let list = []
-    for line in split(result, "\n")
+    for line in split(output, "\n")
+
+        " Parse the filename and line number
         let parts = split(line, ':')
-        call add(list, { 'filename': parts[0], 'lnum': parts[1], 'text': parts[2] })
+
+        " The reset of the string is the description
+        let description = join(parts[2:], ':')
+
+        " Add to the quickfix List
+        call add(list, { 'filename': parts[0], 'lnum': parts[1], 'text': description })
+
     endfor
 
     call setqflist(list)
-    execute ':cwindow'
+    exe 'cwindow'
 endfun
 
 function! phpstan#_resolvePhpstanPath()
-    echo g:phpstan_paths
     for phpstan_path in g:phpstan_paths
         if filereadable(phpstan_path)
             return phpstan_path
@@ -25,7 +31,7 @@ function! phpstan#_resolvePhpstanPath()
     endfor
 
     if !executable('phpstan')
-        throw 'PHPStan doesn't seem to be globally installed or detected locally'
+        throw "PHPStan doesn't seem to be globally installed or detected locally"
     endif
 
     return 'phpstan'

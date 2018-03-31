@@ -26,18 +26,7 @@ Using [vim-plug](https://github.com/junegunn/vim-plug):
 
 You can configure the level PHPStan uses. By default the level is 2.
 
-```
-let g:phpstan_analyse_level = 4
-```
-
-By default the plugin will look for PHPStan in `./vendor/bin/phpstan`, then
-`./bin/phpstan` and fallback to the global `phpstan` global executable if it exists.
-
-You can override the path with
-
-```
-let g:phpstan_path = '/path//to/phpstan'
-```
+`let g:phpstan_analyse_level = 4` in your `.vimrc` file to change the level to fit your needs.
 
 # Assumptions
 
