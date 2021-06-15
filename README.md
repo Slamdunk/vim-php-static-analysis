@@ -21,7 +21,7 @@ And the quickfix list will be populated with something like this:
 
 Using [vim-plug](https://github.com/junegunn/vim-plug):
 
-`Plug 'slamdunk/vim-php-static-analysis`
+`Plug 'slamdunk/vim-php-static-analysis'`
 
 # Assumptions
 
