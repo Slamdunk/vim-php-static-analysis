@@ -1,9 +1,26 @@
-if exists('g:phpstan_plugin_loaded') || &cp
-    finish
-endif
+function! phpstan#PHPStanAnalyse(...)
+    let paths = join(a:000, '\ ')
 
-let g:phpstan_plugin_loaded = 1
-let g:phpstan_paths = [ './vendor/bin/phpstan', './bin/phpstan' ]
+    let cmd = 'vendor/bin/phpstan analyse --error-format=raw --no-progress ' . paths
+    let output = system(cmd)
+
+    let list = []
+    for line in split(output, "\n")
+
+        " Parse the filename and line number
+        let parts = split(line, ':')
+
+        " The reset of the string is the description
+        let description = join(parts[2:], ':')
+
+        " Add to the quickfix List
+        call add(list, { 'filename': parts[0], 'lnum': parts[1], 'text': description })
+
+    endfor
+
+    call setqflist(list)
+    exe 'cwindow'
+endfun
 
 " A command to call
-command! -nargs=+ PHPStanAnalyse call phpstan#PHPStanAnalyse(<f-args>)
+command -nargs=* -complete=file PHPStanAnalyse call phpstan#PHPStanAnalyse(<f-args>)
