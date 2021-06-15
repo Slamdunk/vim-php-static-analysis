@@ -2,7 +2,7 @@ function! phpstan#PHPStanAnalyse(...)
     let paths = join(a:000, '\ ')
     let phpstan_path = phpstan#_resolvePhpstanPath()
 
-    let cmd = phpstan_path . ' analyse --errorFormat=raw --no-progress -l' . g:phpstan_analyse_level . ' ' . paths
+    let cmd = phpstan_path . ' analyse --error-format=raw --no-progress ' . paths
     let output = system(cmd)
 
     let list = []
