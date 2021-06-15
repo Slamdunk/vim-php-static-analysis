@@ -1,12 +1,13 @@
-# vim-phpstan
+# vim-php-static-analysis
 
-A Vim plugin for [PHPStan](https://github.com/phpstan/phpstan). It calls `phpstan` to do static analysis of your PHP code and displays the errors in Vim's quickfix list.
+A Vim plugin for [PHPStan](https://github.com/phpstan/phpstan) and [Psalm](https://github.com/vimeo/psalm).
+It calls `phpstan` or `psalm` to do static analysis of your PHP code and displays the errors in Vim's quickfix list.
 
 See `:help quickfix` for more on how to use the quickfix.
 
 # Usage
 
-Call the `PHPStanAnalyse` command and pass the directories you want analysed as arguments:
+Call the `PHPStanAnalyse` or `Psalm` command and pass the directories you want analysed as arguments:
 
 ``` vim
 :PHPStanAnalyse src test
@@ -20,11 +21,11 @@ And the quickfix list will be populated with something like this:
 
 Using [vim-plug](https://github.com/junegunn/vim-plug):
 
-`Plug 'slamdunk/vim-phpstan'`
+`Plug 'slamdunk/vim-php-static-analysis`
 
 # Assumptions
 
-This plugin assumes that either `vendor/bin/phpstan` or `phpstan` executable is available in the `$PATH`.
+This plugin assumes that `vendor/bin/phpstan` or `vendor/bin/psalm` executable is available in the `$PATH`.
 
 # Authors
 
