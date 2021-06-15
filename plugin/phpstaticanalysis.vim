@@ -37,6 +37,10 @@ function! phpstaticanalysis#PHPStanAnalyse(...)
         " Parse the filename and line number
         let parts = split(line, ':')
 
+        if parts[0] == '?' || parts[0] == 'Note'
+            continue
+        endif
+
         " The reset of the string is the description
         let description = join(parts[2:], ':')
 
